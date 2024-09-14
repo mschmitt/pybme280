@@ -20,8 +20,10 @@ print(f"I! {__file__} serving requests on stdio.", file=sys.stderr)
 sys.stderr.flush()
 while True:
 	out = {}
+	out['port'] = f"{port}"
+	out['address'] = f"{address:#x}"
+
 	sensor = bme280.sample(bus, address, calibration_params)
-		
 	out['temperature'] = round(sensor.temperature, 1)
 	out['humidity'] = round(sensor.humidity, 1)
 	out['pressure'] = round(sensor.pressure, 1)

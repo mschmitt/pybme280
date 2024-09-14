@@ -15,6 +15,7 @@ Telegraf: https://docs.influxdata.com/telegraf/v1/install/
 [[inputs.execd]]
 interval = '10s'
 command = ['/usr/local/pybme280/bin/python3', '/usr/local/pybme280/bin/bme280']
+tag_keys = ['port', 'address']
 signal = 'STDIN'
 data_format = 'json'
 name_suffix = '_bme280'
