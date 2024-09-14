@@ -5,7 +5,7 @@ cd /usr/local
 git clone https://github.com/mschmitt/pybme280.git
 make -C pybme280
 . pybme280/bin/activate
-pybme280/bin/bme208
+pybme280/bin/bme280
 ```
 
 Telegraf: https://docs.influxdata.com/telegraf/v1/install/
