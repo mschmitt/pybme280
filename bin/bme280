@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+
+import smbus2
+import bme280
+import json
+import time
+import sys
+try:
+	from meteocalc import Temp, dew_point
+except:
+	print("W! meteocalc module not available. Proceeding without.", file=sys.stderr)
+	sys.stderr.flush()
+
+port = 1
+address = 0x76
+bus = smbus2.SMBus(port)
+calibration_params = bme280.load_calibration_params(bus, address)
+
+print(f"I! {__file__} serving requests on stdio.", file=sys.stderr)
+sys.stderr.flush()
+while True:
+	out = {}
+	sensor = bme280.sample(bus, address, calibration_params)
+		
+	out['temperature'] = round(sensor.temperature, 1)
+	out['humidity'] = round(sensor.humidity, 1)
+	out['pressure'] = round(sensor.pressure, 1)
+
+	try:
+		t = Temp(sensor.temperature, 'c')
+		h = sensor.humidity
+		out['dewpoint'] = round(dew_point(temperature=t, humidity=h), 1)
+	except:
+		pass
+
+	print(f"{json.dumps(out)}")
+	sys.stdout.flush()
+	input()
