@@ -1,4 +1,4 @@
-BME280 on Raspi, as a prometheus sensor.
+BME280 on Raspi, as a prometheus exporter.
 
 ```
 cd /usr/local
